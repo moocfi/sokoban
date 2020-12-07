@@ -3,10 +3,10 @@ import pygame
 class Sokoban:
     def __init__(self):
         pygame.init()
-        
+
         self.lataa_kuvat()
         self.uusi_peli()
-        
+
         self.korkeus = len(self.kartta)
         self.leveys = len(self.kartta[0])
         self.skaala = self.kuvat[0].get_width()
@@ -61,30 +61,31 @@ class Sokoban:
             if tapahtuma.type == pygame.QUIT:
                 exit()
 
-    def liiku(self, dy, dx):
+
+    def liiku(self, liike_y, liike_x):
         if self.peli_lapi():
             return
 
-        robo_y, robo_x = self.etsi_robo()
-        uusi_y = robo_y + dy
-        uusi_x = robo_x + dx
+        robon_vanha_y, robon_vanha_x = self.etsi_robo()
+        robon_uusi_y = robon_vanha_y + liike_y
+        robon_uusi_x = robon_vanha_x + liike_x
 
-        if self.kartta[uusi_y][uusi_x] == 1:
+        if self.kartta[robon_uusi_y][robon_uusi_x] == 1:
             return
 
-        if self.kartta[uusi_y][uusi_x] in [3, 5]:
-            kolmas_y = uusi_y + dy
-            kolmas_x = uusi_x + dx
+        if self.kartta[robon_uusi_y][robon_uusi_x] in [3, 5]:
+            laatikon_uusi_y = robon_uusi_y + liike_y
+            laatikon_uusi_x = robon_uusi_x + liike_x
 
-            if self.kartta[kolmas_y][kolmas_x] in [1, 3, 5]:
+            if self.kartta[laatikon_uusi_y][laatikon_uusi_x] in [1, 3, 5]:
                 return
 
-            self.kartta[uusi_y][uusi_x] -= 3
-            self.kartta[kolmas_y][kolmas_x] += 3
+            self.kartta[robon_uusi_y][robon_uusi_x] -= 3
+            self.kartta[laatikon_uusi_y][laatikon_uusi_x] += 3
 
-        self.kartta[robo_y][robo_x] -= 4
-        self.kartta[uusi_y][uusi_x] += 4
-        
+        self.kartta[robon_vanha_y][robon_vanha_x] -= 4
+        self.kartta[robon_uusi_y][robon_uusi_x] += 4
+
         self.siirrot += 1
 
     def etsi_robo(self):
