@@ -9,7 +9,7 @@ class Sokoban:
 
         self.korkeus = len(self.kartta)
         self.leveys = len(self.kartta[0])
-        self.skaala = self.kuvat[0].get_width()
+        self.skaala = self.kuvat[0].get_width()#skaala = scale
 
         nayton_korkeus = self.skaala * self.korkeus
         nayton_leveys = self.skaala * self.leveys
@@ -19,7 +19,7 @@ class Sokoban:
 
         pygame.display.set_caption("Sokoban")
 
-        self.silmukka()
+        self.silmukka()#self.main_loop()
 
     def lataa_kuvat(self):
         self.kuvat = []
